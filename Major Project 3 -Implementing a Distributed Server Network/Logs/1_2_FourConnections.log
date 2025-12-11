@@ -1,0 +1,65 @@
+
+##############################################
+Beginning test 1_2_FourConnections
+
+*CMD.........	Starting --id 123  --servername theshire --port 31201 --info "Home of the hobbits" --log-file theshire.log
+[theshire] 	Launching server theshire...
+*CMD.........	Waiting... 0.25
+[theshire] 	[SERVER] Configuring the server socket...
+[SERVER] Created and binded 'theshire' server socket, on ('0.0.0.0', 31201)
+[SERVER] Registered theshire with key SelectorKey(fileobj=<socket.socket fd=8, family=2, type=1, proto=0, laddr=('0.0.0.0', 31201)>, fd=8, events=1, data=None)
+[theshire] 	Listening for new connections on port 31201
+*CMD.........	Starting --id 456 --servername rivendale --port 31202 --info "Elrond's House" --log-file rivendale.log --connect_to_host theshire --connect_to_port 31201
+[rivendale] 	Launching server rivendale...
+*CMD.........	Waiting... 0.25
+[rivendale] 	[SERVER] Configuring the server socket...
+[SERVER] Created and binded 'rivendale' server socket, on ('0.0.0.0', 31202)
+[SERVER] Registered rivendale with key SelectorKey(fileobj=<socket.socket fd=12, family=2, type=1, proto=0, laddr=('0.0.0.0', 31202)>, fd=12, events=1, data=None)
+[rivendale] 	[SERVER] Connecting to remote server theshire:31201...
+[SERVER] Created socket to connect rivendale to remote CRC server theshire...
+[SERVER] Connected new socket to 127.0.0.1, 31201
+[rivendale] 	Connected to another server
+[rivendale] 	Listening for new connections on port 31202
+[SERVER] Current socket: <socket.socket fd=8, family=2, type=1, proto=0, laddr=('0.0.0.0', 31201)>
+* [SERVER] * 'theshire' accepting new connection from '('127.0.0.1', 63078)...
+[theshire] 	Accepted a connection from another server
+[theshire] 	Received b'\x00\x00\x00\x01\xc8\x00\x00\x00\x00\t\x00\x10rivendale"Elrond\'s House"'
+b'\x00\x00\x00\x01\xc8\x00\x00\x00\x00\t\x00\x10rivendale"Elrond\'s House"'
+*CMD.........	Starting --id 789 --servername minastirith --port 31203 --info "Tower of Guard" --log-file minastirith.log --connect_to_host theshire --connect_to_port 31201
+[minastirith] 	Launching server minastirith...
+*CMD.........	Waiting... 0.25
+[minastirith] 	[SERVER] Configuring the server socket...
+[SERVER] Created and binded 'minastirith' server socket, on ('0.0.0.0', 31203)
+[SERVER] Registered minastirith with key SelectorKey(fileobj=<socket.socket fd=17, family=2, type=1, proto=0, laddr=('0.0.0.0', 31203)>, fd=17, events=1, data=None)
+[minastirith] 	[SERVER] Connecting to remote server theshire:31201...
+[SERVER] Created socket to connect minastirith to remote CRC server theshire...
+[SERVER] Connected new socket to 127.0.0.1, 31201
+[SERVER] Current socket: <socket.socket fd=8, family=2, type=1, proto=0, laddr=('0.0.0.0', 31201)>
+* [SERVER] * 'theshire' accepting new connection from '('127.0.0.1', 63079)...
+[theshire] 	Accepted a connection from another server
+[minastirith] 	Connected to another server
+[minastirith] 	Listening for new connections on port 31203
+[theshire] 	Received b'\x00\x00\x00\x03\x15\x00\x00\x00\x00\x0b\x00\x10minastirith"Tower of Guard"'
+b'\x00\x00\x00\x03\x15\x00\x00\x00\x00\x0b\x00\x10minastirith"Tower of Guard"'
+*CMD.........	Starting --id 987 --servername barad-dur --port 31204 --info "the Dark Tower" --log-file barad-dur.log --connect_to_host minastiri --connect_to_port 31203
+[barad-dur] 	Launching server barad-dur...
+*CMD.........	Waiting... 0.5
+[barad-dur] 	[SERVER] Configuring the server socket...
+[SERVER] Created and binded 'barad-dur' server socket, on ('0.0.0.0', 31204)
+[SERVER] Registered barad-dur with key SelectorKey(fileobj=<socket.socket fd=22, family=2, type=1, proto=0, laddr=('0.0.0.0', 31204)>, fd=22, events=1, data=None)
+[barad-dur] 	[SERVER] Connecting to remote server minastiri:31203...
+[SERVER] Created socket to connect barad-dur to remote CRC server minastiri...
+[SERVER] Connected new socket to 127.0.0.1, 31203
+[barad-dur] 	Connected to another server
+[barad-dur] 	Listening for new connections on port 31204
+[SERVER] Current socket: <socket.socket fd=17, family=2, type=1, proto=0, laddr=('0.0.0.0', 31203)>
+* [SERVER] * 'minastirith' accepting new connection from '('127.0.0.1', 63080)...
+[minastirith] 	Accepted a connection from another server
+[minastirith] 	Received b'\x00\x00\x00\x03\xdb\x00\x00\x00\x00\t\x00\x10barad-dur"the Dark Tower"'
+b'\x00\x00\x00\x03\xdb\x00\x00\x00\x00\t\x00\x10barad-dur"the Dark Tower"'
+[theshire] 	Cleaning up the server
+[rivendale] 	Cleaning up the server
+[minastirith] 	Cleaning up the server
+[barad-dur] 	Cleaning up the server
+
+Test passed:True

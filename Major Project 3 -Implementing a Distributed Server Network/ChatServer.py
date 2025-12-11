@@ -1,5 +1,5 @@
 from ChatMessageParser import *
-from socket import *
+import socket
 import os
 import selectors
 import logging
@@ -88,6 +88,7 @@ class CRCServer(object):
 
         # TODO: Create your selector and store it in self.sel
         self.sel = selectors.DefaultSelector()
+        self.server_socket_created = 0
 
 
         # The following four variables will be used to track information about the state of the network
@@ -187,20 +188,30 @@ class CRCServer(object):
         Returns:
             None        
         """        
-        self.print_info("Configuring the server socket...")
+        self.print_info("[SERVER] Configuring the server socket...")
 
         # TODO: Implement the above functionality
 
-        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s.bind(('0.0.0.0', self.port))
+        try:
+            self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.server_socket.bind(('0.0.0.0', self.port))
+            print(f"[SERVER] Created and binded '{self.server_name}' server socket, on ('0.0.0.0', {self.port})")
+        except OSError as e:
+            print(f"[SERVER] Error creating socket: {e}")
 
-        self.s.setblocking(False)
+        self.server_socket.setblocking(False)
         events = selectors.EVENT_READ
-        self.s_data = BaseConnectionData()
+        self.server_socket_data = None
 
-        self.sel.register(s, events, self.s_data)
+        if self.server_socket_created == 0:
+            try:
+                key = self.sel.register(self.server_socket, events, self.server_socket_data)
+                self.server_socket_created = 1
+                print(f"[SERVER] Registered {self.server_name} with key {key}")
+            except KeyError as e:
+                print(f"Server {self.server_name} could not be registered to selector: {e}")
         
-        self.s.listen()
+        self.server_socket.listen()
 
 
     def connect_to_server(self):
@@ -224,17 +235,33 @@ class CRCServer(object):
         Returns:
             None        
         """
-        self.print_info("Connecting to remote server %s:%i..." % (self.connect_to_host, self.connect_to_port))
+        self.print_info("[SERVER] Connecting to remote server %s:%i..." % (self.connect_to_host, self.connect_to_port))
 
         # TODO: Implement the above functionality
 
-        server_data = ServerRegistrationMessage.bytes(0x00, self.id, 0, len(self.server_name), len(self.server_info),
-                                                      self.server_name, self.server_info)
+        try:
+            self.new_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            print(f"[SERVER] Created socket to connect {self.server_name} to remote CRC server {self.connect_to_host}...")
+        except OSError as e:
+            print(f"[SERVER] Error creating socket: {e}")
+
+        try:
+            self.new_sock.connect((self.connect_to_host_addr, self.connect_to_port))
+            print(f"[SERVER] Connected new socket to {self.connect_to_host_addr}, {self.connect_to_port}")
+        except OSError as e:
+            print(f"[SERVER] Connection to {self.connect_to_host_addr}, {self.connect_to_port} failed because of {e}")
+
+        self.new_sock.setblocking(False)
+        events = selectors.EVENT_READ | selectors.EVENT_WRITE
+
+        self.new_sock_data = BaseConnectionData()
+        msg = ServerRegistrationMessage.bytes(self.id, 0, self.server_name, self.server_info)
+        self.new_sock_data.write_buffer += msg
+
         
+        self.sel.register(self.new_sock, events, self.new_sock_data)
 
-
-
-
+        
 
     def check_IO_devices_for_messages(self):
         """ This function manages the main loop responsible for processing input and output on all sockets 
@@ -265,11 +292,15 @@ class CRCServer(object):
         self.print_info("Listening for new connections on port " + str(self.port))
         
         while not self.request_terminate:
-            ready_IO = self.sel.select(timeout = 1) # Get a list of the ready IO devices
+            ready_IO = self.sel.select(timeout = 0.1) # Get a list of the ready IO devices
 
             for io_device , event_mask in ready_IO:
                 if event_mask & selectors.EVENT_READ:
-                    self.accept_new_connection(io_device)
+                    if io_device.data is None:
+                        print(f"[SERVER] Current socket: {io_device.fileobj}")
+                        self.accept_new_connection(io_device)
+                    else: 
+                        self.handle_io_device_events(io_device, event_mask)
 
                 if event_mask & selectors.EVENT_WRITE:
                     self.handle_io_device_events(io_device, event_mask)
@@ -296,7 +327,16 @@ class CRCServer(object):
         """
         self.print_info("Cleaning up the server")
         # TODO: Implement the above functionality
-        pass
+
+        socket_list = list(self.sel.get_map().items())
+        
+        for fd, key in socket_list:
+            sock = key.fileobj
+            if isinstance(sock, socket.socket):
+                self.sel.unregister(sock) 
+                sock.close()          
+
+        self.sel.close()
 
 
 
@@ -321,15 +361,17 @@ class CRCServer(object):
             None        
         """
         # TODO: Implement the above functionality
-        s = io_device.fileobj
+        self.s = io_device.fileobj
 
-        conn, addr = s.accept()
+        self.conn, self.addr = self.s.accept()
 
-        conn.setblocking(False)
+        print(f"* [SERVER] * '{self.server_name}' accepting new connection from '{self.addr}...")
+
+        self.conn.setblocking(False)
         events = selectors.EVENT_READ | selectors.EVENT_WRITE
-        conn_data = BaseConnectionData()
+        self.conn_data = BaseConnectionData()
 
-        self.sel.register(s, events, conn_data)
+        self.sel.register(self.conn, events, self.conn_data)
 
 
    
@@ -358,21 +400,21 @@ class CRCServer(object):
             None        
         """
         # TODO: Implement the above functionality
-        s = io_device.fileobj
-        s_data = io_device.data
+        self.s = io_device.fileobj
+        self.s_data = io_device.data
 
         if event_mask & selectors.EVENT_WRITE:
-            if len(s_data['write_buffer']) > 0:
-                s.send(s_data['write_buffer'])
-                s_data['write_buffer'] = b''
+            if len(self.s_data.write_buffer) > 0:
+                self.s.send(self.s_data.write_buffer)
+                self.s_data.write_buffer = b''
 
         if event_mask & selectors.EVENT_READ:
-            msg = s.recv(1024)
+            msg = self.s.recv(1024)
             if msg == b'':
-                self.sel.unregister(s)
-                s.close()
+                self.sel.unregister(self.s)
+                self.s.close()
             else:
-                self.handle_msg(io_device, msg)
+                self.handle_messages(io_device, msg)
 
 
     
