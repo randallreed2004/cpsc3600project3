@@ -114,9 +114,9 @@ if __name__ == "__main__":
         # messages yet. You need to complete the following methods to pass these tests: __init__(), 
         # setup_server_socket(), connect_to_server(), check_IO_devices_for_messages(), cleanup(), 
         # accept_new_connection(), and handle_io_device_events().
-        '1_1_TwoConnections':7,
-        '1_2_FourConnections':6,
-        '1_3_EightConnections':5,
+        #'1_1_TwoConnections':7,
+        #'1_2_FourConnections':6,
+        #'1_3_EightConnections':5,
 
 
         # This batch of tests evaluates how your code handles Server Registration messages. 

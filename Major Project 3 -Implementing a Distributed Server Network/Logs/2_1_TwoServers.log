@@ -1,0 +1,24 @@
+
+##############################################
+Beginning test 2_1_TwoServers
+
+*CMD.........	Starting --id 1 --servername theshire --port 32101 --info "Home of the Hobbits" --log-file theshire.log
+[theshire] 	Launching server theshire...
+*CMD.........	Waiting... 0.25
+[theshire] 	[SERVER] Configuring the server socket...
+[theshire] 	Listening for new connections on port 32101
+*CMD.........	Starting --id 2 --servername rivendale --port 32102 --info "Elronds House" --log-file rivendale.log --connect_to_host theshire --connect_to_port 32101
+[rivendale] 	Launching server rivendale...
+*CMD.........	Waiting... 0.5
+[rivendale] 	[SERVER] Configuring the server socket...
+[rivendale] 	[SERVER] Connecting to remote server theshire:32101...
+[rivendale] 	Listening for new connections on port 32102
+[SERVER] Current socket: <socket.socket fd=12, family=2, type=1, proto=0, laddr=('0.0.0.0', 32101)>
+* [SERVER] * 'theshire' accepting new connection from '('127.0.0.1', 51026)...
+[theshire] 	Received msg from Host ID #2 "b'\x00\x00\x00\x00\x02\x00\x00\x00\x00\t\x00\x0frivendale"Elronds House"'"
+[rivendale] 	Received msg from Host ID #1 "b'\x00\x00\x00\x00\x01\x00\x00\x00\x01\x08\x00\x15theshire"Home of the Hobbits"'"
+[SERVER] rivendale ADJACENT IDS: [1] 
+[theshire] 	Cleaning up the server
+[rivendale] 	Cleaning up the server
+
+Test passed:True
