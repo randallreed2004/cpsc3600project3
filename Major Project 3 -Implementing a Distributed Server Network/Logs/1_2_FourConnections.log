@@ -14,18 +14,14 @@ Beginning test 1_2_FourConnections
 [rivendale] 	[SERVER] Connecting to remote server theshire:31201...
 [rivendale] 	Connected to another server
 [rivendale] 	Listening for new connections on port 31202
-[SERVER] Current socket: <socket.socket fd=8, family=2, type=1, proto=0, laddr=('0.0.0.0', 31201)>
-* [SERVER] * 'theshire' accepting new connection from '('127.0.0.1', 51016)...
 [theshire] 	Accepted a connection from another server
 [theshire] 	Received b'\x00\x00\x00\x01\xc8\x00\x00\x00\x00\t\x00\x10rivendale"Elrond\'s House"'
 b'\x00\x00\x00\x01\xc8\x00\x00\x00\x00\t\x00\x10rivendale"Elrond\'s House"'
 *CMD.........	Starting --id 789 --servername minastirith --port 31203 --info "Tower of Guard" --log-file minastirith.log --connect_to_host theshire --connect_to_port 31201
 [minastirith] 	Launching server minastirith...
-*CMD.........	Waiting... 0.25
 [minastirith] 	[SERVER] Configuring the server socket...
+*CMD.........	Waiting... 0.25
 [minastirith] 	[SERVER] Connecting to remote server theshire:31201...
-[SERVER] Current socket: <socket.socket fd=8, family=2, type=1, proto=0, laddr=('0.0.0.0', 31201)>
-* [SERVER] * 'theshire' accepting new connection from '('127.0.0.1', 51017)...
 [minastirith] 	Connected to another server
 [minastirith] 	Listening for new connections on port 31203
 [theshire] 	Accepted a connection from another server
@@ -36,11 +32,9 @@ b'\x00\x00\x00\x03\x15\x00\x00\x00\x00\x0b\x00\x10minastirith"Tower of Guard"'
 *CMD.........	Waiting... 0.5
 [barad-dur] 	[SERVER] Configuring the server socket...
 [barad-dur] 	[SERVER] Connecting to remote server minastiri:31203...
-[SERVER] Current socket: <socket.socket fd=17, family=2, type=1, proto=0, laddr=('0.0.0.0', 31203)>
-* [SERVER] * 'minastirith' accepting new connection from '('127.0.0.1', 51018)...
-[minastirith] 	Accepted a connection from another server
 [barad-dur] 	Connected to another server
 [barad-dur] 	Listening for new connections on port 31204
+[minastirith] 	Accepted a connection from another server
 [minastirith] 	Received b'\x00\x00\x00\x03\xdb\x00\x00\x00\x00\t\x00\x10barad-dur"the Dark Tower"'
 b'\x00\x00\x00\x03\xdb\x00\x00\x00\x00\t\x00\x10barad-dur"the Dark Tower"'
 [theshire] 	Cleaning up the server

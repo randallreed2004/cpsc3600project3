@@ -14,8 +14,6 @@ Beginning test 1_3_EightConnections
 [rivendale] 	[SERVER] Connecting to remote server theshire:31301...
 [rivendale] 	Connected to another server
 [rivendale] 	Listening for new connections on port 31302
-[SERVER] Current socket: <socket.socket fd=10, family=2, type=1, proto=0, laddr=('0.0.0.0', 31301)>
-* [SERVER] * 'theshire' accepting new connection from '('127.0.0.1', 51019)...
 [theshire] 	Accepted a connection from another server
 [theshire] 	Received b'\x00\x00\x00\x00\x02\x00\x00\x00\x00\t\x00\x10rivendale"Elrond\'s House"'
 b'\x00\x00\x00\x00\x02\x00\x00\x00\x00\t\x00\x10rivendale"Elrond\'s House"'
@@ -24,8 +22,6 @@ b'\x00\x00\x00\x00\x02\x00\x00\x00\x00\t\x00\x10rivendale"Elrond\'s House"'
 *CMD.........	Waiting... 0.25
 [mirkwood] 	[SERVER] Configuring the server socket...
 [mirkwood] 	[SERVER] Connecting to remote server rivendale:31302...
-[SERVER] Current socket: <socket.socket fd=14, family=2, type=1, proto=0, laddr=('0.0.0.0', 31302)>
-* [SERVER] * 'rivendale' accepting new connection from '('127.0.0.1', 51020)...
 [mirkwood] 	Connected to another server
 [mirkwood] 	Listening for new connections on port 31303
 [rivendale] 	Accepted a connection from another server
@@ -33,13 +29,11 @@ b'\x00\x00\x00\x00\x02\x00\x00\x00\x00\t\x00\x10rivendale"Elrond\'s House"'
 b'\x00\x00\x00\x00\x03\x00\x00\x00\x00\x08\x00\x15mirkwood"Wood of Greenleaves"'
 *CMD.........	Starting --id 4 --servername lothlorin --port 31304 --info "The Golden Wood" --log-file lothlorien.log --connect_to_host mirkwood --connect_to_port 31303
 [lothlorin] 	Launching server lothlorin...
-*CMD.........	Waiting... 0.25
 [lothlorin] 	[SERVER] Configuring the server socket...
+*CMD.........	Waiting... 0.25
 [lothlorin] 	[SERVER] Connecting to remote server mirkwood:31303...
 [lothlorin] 	Connected to another server
 [lothlorin] 	Listening for new connections on port 31304
-[SERVER] Current socket: <socket.socket fd=20, family=2, type=1, proto=0, laddr=('0.0.0.0', 31303)>
-* [SERVER] * 'mirkwood' accepting new connection from '('127.0.0.1', 51021)...
 [mirkwood] 	Accepted a connection from another server
 [mirkwood] 	Received b'\x00\x00\x00\x00\x04\x00\x00\x00\x00\t\x00\x11lothlorin"The Golden Wood"'
 b'\x00\x00\x00\x00\x04\x00\x00\x00\x00\t\x00\x11lothlorin"The Golden Wood"'
@@ -48,8 +42,6 @@ b'\x00\x00\x00\x00\x04\x00\x00\x00\x00\t\x00\x11lothlorin"The Golden Wood"'
 *CMD.........	Waiting... 0.25
 [isengard] 	[SERVER] Configuring the server socket...
 [isengard] 	[SERVER] Connecting to remote server rivendale:31302...
-[SERVER] Current socket: <socket.socket fd=14, family=2, type=1, proto=0, laddr=('0.0.0.0', 31302)>
-* [SERVER] * 'rivendale' accepting new connection from '('127.0.0.1', 51022)...
 [rivendale] 	Accepted a connection from another server
 [isengard] 	Connected to another server
 [isengard] 	Listening for new connections on port 31305
@@ -62,8 +54,6 @@ b'\x00\x00\x00\x00\x05\x00\x00\x00\x00\x08\x00\tisengard"Orthanc"'
 [minastirith] 	[SERVER] Connecting to remote server theshire:31301...
 [minastirith] 	Connected to another server
 [minastirith] 	Listening for new connections on port 31306
-[SERVER] Current socket: <socket.socket fd=10, family=2, type=1, proto=0, laddr=('0.0.0.0', 31301)>
-* [SERVER] * 'theshire' accepting new connection from '('127.0.0.1', 51023)...
 [theshire] 	Accepted a connection from another server
 [theshire] 	Received b'\x00\x00\x00\x00\x06\x00\x00\x00\x00\x0b\x00\x10minastirith"Tower of Guard"'
 b'\x00\x00\x00\x00\x06\x00\x00\x00\x00\x0b\x00\x10minastirith"Tower of Guard"'
@@ -74,8 +64,6 @@ b'\x00\x00\x00\x00\x06\x00\x00\x00\x00\x0b\x00\x10minastirith"Tower of Guard"'
 [osgiliath] 	[SERVER] Connecting to remote server minastiri:31306...
 [osgiliath] 	Connected to another server
 [osgiliath] 	Listening for new connections on port 31307
-[SERVER] Current socket: <socket.socket fd=36, family=2, type=1, proto=0, laddr=('0.0.0.0', 31306)>
-* [SERVER] * 'minastirith' accepting new connection from '('127.0.0.1', 51024)...
 [minastirith] 	Accepted a connection from another server
 [minastirith] 	Received b'\x00\x00\x00\x00\x07\x00\x00\x00\x00\t\x00\x16osgiliath"Citadel of the Stars"'
 b'\x00\x00\x00\x00\x07\x00\x00\x00\x00\t\x00\x16osgiliath"Citadel of the Stars"'
@@ -84,8 +72,6 @@ b'\x00\x00\x00\x00\x07\x00\x00\x00\x00\t\x00\x16osgiliath"Citadel of the Stars"'
 *CMD.........	Waiting... 0.5
 [barad-dur] 	[SERVER] Configuring the server socket...
 [barad-dur] 	[SERVER] Connecting to remote server minastiri:31306...
-[SERVER] Current socket: <socket.socket fd=36, family=2, type=1, proto=0, laddr=('0.0.0.0', 31306)>
-* [SERVER] * 'minastirith' accepting new connection from '('127.0.0.1', 51025)...
 [barad-dur] 	Connected to another server
 [barad-dur] 	Listening for new connections on port 31308
 [minastirith] 	Accepted a connection from another server

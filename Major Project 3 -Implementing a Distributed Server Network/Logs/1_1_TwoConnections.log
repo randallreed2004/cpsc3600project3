@@ -14,8 +14,6 @@ Beginning test 1_1_TwoConnections
 [rivendale] 	[SERVER] Connecting to remote server theshire:31101...
 [rivendale] 	Connected to another server
 [rivendale] 	Listening for new connections on port 31102
-[SERVER] Current socket: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('0.0.0.0', 31101)>
-* [SERVER] * 'theshire' accepting new connection from '('127.0.0.1', 51014)...
 [theshire] 	Accepted a connection from another server
 [theshire] 	Received b'\x00\x00\x00\xb2n\x00\x00\x00\x00\t\x00\x10rivendale"Elrond\'s House"'
 b'\x00\x00\x00\xb2n\x00\x00\x00\x00\t\x00\x10rivendale"Elrond\'s House"'
